@@ -1,0 +1,14 @@
+{
+  "development": {
+    "storage": "./db/pos_db",
+    "dialect": "sqlite"
+  },
+  "test": {
+    "storage": "./db/pos_db",
+    "dialect": "sqlite"
+  },
+  "production": {
+    "storage": "./db/pos_db",
+    "dialect": "sqlite"
+  }
+}
