@@ -22,6 +22,12 @@ sequelize init
 npm install sqlite3 --save
 ```
 
+## Install Cors
+
+```
+npm install cors --save
+```
+
 ## Setting config.json
 
 ```
