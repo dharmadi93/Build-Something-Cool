@@ -28,6 +28,39 @@ npm install sqlite3 --save
 npm install cors --save
 ```
 
+### Install express-session
+
+```
+npm install express-session --save
+```
+
+### Install passport, passport local, and passport local mongoose
+
+```
+npm install passport --save
+npm install passport-local --save
+npm install passport-local-mongoose --save
+```
+
+### Install dotenv
+
+```
+npm install dotenv --save
+```
+
+### Install mocha
+
+```
+npm install mocha -g
+```
+
+### Install chai and chai-http
+
+```
+npm install chai --save
+npm install chai-http --save
+```
+
 ## Setting config.json
 
 ```
