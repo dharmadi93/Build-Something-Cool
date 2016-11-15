@@ -20,6 +20,7 @@
     "font-awesome": "fontawesome#^4.7.0",
     "simple-line-icons": "^2.4.1",
     "jquery.uniform": "uniform#^4.0.1",
-    "bootstrap-switch": "^3.3.2"
+    "bootstrap-switch": "^3.3.2",
+    "bootstrap-daterangepicker": "^2.1.24"
   }
 }
