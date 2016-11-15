@@ -23,17 +23,30 @@ module.exports = {
         })
     },
 
-    localRegister: (req, res) => {
-        Employee.register(new Employee({
+    createEmployee: (req, res) => {
+        Employee.create({
             name: req.body.name,
             username: req.body.username,
-            email: req.body.email,
-            photo_path: "empty"
-        }), req.body.password, (err, data) => {
-            if (err) res.json(err)
-            else res.json(data)
+            password: req.body.password,
+            email: req.body.email
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
         })
     },
+
+    // localRegister: (req, res) => {
+    //     Employee.register(new Employee({
+    //         name: req.body.name,
+    //         username: req.body.username,
+    //         email: req.body.email,
+    //         photo_path: "empty"
+    //     }), req.body.password, (err, data) => {
+    //         if (err) res.json(err)
+    //         else res.json(data)
+    //     })
+    // },
 
     deleteEmployee: (req, res) => {
         Employee.destroy({

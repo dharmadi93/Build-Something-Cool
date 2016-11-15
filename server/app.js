@@ -42,30 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-      Employee().findOne({ username: username }, function (err, employee) {
-        if (err) { return done(err); }
-        if (!employee) {
-          return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (!employee.validPassword(password)) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, employee);
-      });
-    }
-));
+// passport.use(Employee.createStrategy());
 
-passport.serializeUser(function(employee, done) {
-  done(null, employee.id);
-});
-
-passport.deserializeUser(function(employee, done) {
-  User.findById(id, function(err, user) {
-    done(err, employee);
-  });
-});
+// passport.serializeUser(Employee.serializeUser());
+// passport.deserializeUser(Employee.deserializeUser());
 
 app.use('/', routes);
 app.use('/api/employee', employees);

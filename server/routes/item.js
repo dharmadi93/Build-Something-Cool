@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-const employeeController = require('../controllers/controller.api.employee')
+const itemController = require('../controllers/')
 
-router.post('/register', employeeController.createEmployee)
+router.post('/register', employeeController.localRegister)
 router.get('/', employeeController.getAllEmployee)
 router.get('/:id', employeeController.getEmployeeById)
 router.put('/:id', employeeController.updateEmployee)
