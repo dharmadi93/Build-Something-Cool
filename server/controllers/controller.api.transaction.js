@@ -14,10 +14,22 @@ module.exports = {
     },
 
     getAllTransaction: (req, res) => {
-
+        Transaction.findAll().catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
+        })
     },
 
     getTransactionById: (req, res) => {
-
+        Transaction.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
+        })
     }
 }
