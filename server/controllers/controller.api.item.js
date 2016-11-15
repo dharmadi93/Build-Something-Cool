@@ -68,6 +68,34 @@ module.exports = {
         }).then((data) => {
             res.json(data)
         }))
+    },
+
+    addItemQuantity: (req, res) => {
+        Item.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+          Item.update({
+              quantity: data.quantity + Number(req.body.quantity)
+          }, {
+              where: {
+                  id: req.params.id
+              }
+          }).catch((err) => {
+              res.json(err)
+          }).then(Item.findOne({
+              where: {
+                  id: req.params.id
+              }
+          }).catch((err) => {
+              res.json(err)
+          }).then((data) => {
+              res.json(data)
+          }))
+        })
     }
 }
 
