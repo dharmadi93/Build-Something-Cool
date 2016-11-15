@@ -22,6 +22,7 @@
     "jquery.uniform": "uniform#^4.0.1",
     "bootstrap-switch": "^3.3.2",
     "bootstrap-daterangepicker": "^2.1.24",
-    "morris.js": "morrisjs#^0.5.1"
+    "morris.js": "morrisjs#^0.5.1",
+    "fullcalendar": "^3.0.1"
   }
 }
