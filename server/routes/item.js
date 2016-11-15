@@ -3,10 +3,10 @@ var router = express.Router();
 
 const itemController = require('../controllers/')
 
-router.post('/register', employeeController.localRegister)
-router.get('/', employeeController.getAllEmployee)
-router.get('/:id', employeeController.getEmployeeById)
-router.put('/:id', employeeController.updateEmployee)
-router.delete('/:id', employeeController.deleteEmployee)
+router.post('/')
+router.get('/')
+router.get('/:id',)
+router.put('/:id',)
+router.delete('/:id')
 
 module.exports = router;
