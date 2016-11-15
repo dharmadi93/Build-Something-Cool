@@ -40,6 +40,24 @@ module.exports = {
     },
 
     updateEmployee: (req, res) => {
-
+        Employee.update({
+            name: req.body.name,
+            username: req.body.username,
+            email: req.body.email
+        }, {
+            where: {
+                id: req.params.id
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then(Employee.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
+        }))
     }
 }
