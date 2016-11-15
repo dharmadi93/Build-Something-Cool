@@ -24,7 +24,15 @@ module.exports = {
     },
 
     getItemById: (req, res) => {
-
+        Item.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
+        })
     },
 
     deleteItem: (req, res) => {

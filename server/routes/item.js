@@ -5,7 +5,7 @@ const itemController = require('../controllers/controller.api.item')
 
 router.post('/', itemController.createItem)
 router.get('/', itemController.getAllItems)
-router.get('/:id')
+router.get('/:id', itemController.getItemById)
 router.put('/:id')
 router.delete('/:id')
 
