@@ -17,6 +17,8 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "font-awesome": "fontawesome#^4.7.0"
+    "font-awesome": "fontawesome#^4.7.0",
+    "simple-line-icons": "^2.4.1",
+    "jquery.uniform": "uniform#^4.0.1"
   }
 }
