@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,11 +9,12 @@ var bodyParser = require('body-parser');
 const session = require('express-session')
 const cors = require('cors')
 
+const Employee = require('./models/employee')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var employees = require('./routes/employee');
 
 var app = express();
 
@@ -39,13 +42,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate()))
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+      Employee().findOne({ username: username }, function (err, employee) {
+        if (err) { return done(err); }
+        if (!employee) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!employee.validPassword(password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        return done(null, employee);
+      });
+    }
+));
 
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
+passport.serializeUser(function(employee, done) {
+  done(null, employee.id);
+});
+
+passport.deserializeUser(function(employee, done) {
+  User.findById(id, function(err, user) {
+    done(err, employee);
+  });
+});
 
 app.use('/', routes);
-app.use('/api/users', users);
+app.use('/api/employee', employees);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
