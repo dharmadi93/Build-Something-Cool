@@ -36,7 +36,15 @@ module.exports = {
     },
 
     deleteItem: (req, res) => {
-
+        Item.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
+        })
     },
 
     updateItem: (req, res) => {
