@@ -36,7 +36,15 @@ module.exports = {
     },
 
     deleteEmployee: (req, res) => {
-
+        Employee.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
+        })
     },
 
     updateEmployee: (req, res) => {
