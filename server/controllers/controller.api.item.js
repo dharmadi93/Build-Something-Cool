@@ -16,7 +16,11 @@ module.exports = {
     },
 
     getAllItems: (req, res) => {
-
+        Item.findAll().catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            res.json(data)
+        })
     },
 
     getItemById: (req, res) => {

@@ -4,7 +4,7 @@ var router = express.Router();
 const itemController = require('../controllers/controller.api.item')
 
 router.post('/', itemController.createItem)
-router.get('/')
+router.get('/', itemController.getAllItems)
 router.get('/:id')
 router.put('/:id')
 router.delete('/:id')
