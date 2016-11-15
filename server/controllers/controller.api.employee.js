@@ -12,7 +12,15 @@ module.exports = {
     },
 
     getEmployeeById: (req, res) => {
-
+        Employee.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then((data) => {
+            res.json(data)
+        }).catch((err) => {
+            res.json(err)
+        })
     },
 
     localRegister: (req, res) => {
