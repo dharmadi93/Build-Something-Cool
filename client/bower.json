@@ -23,6 +23,18 @@
     "bootstrap-switch": "^3.3.2",
     "bootstrap-daterangepicker": "^2.1.24",
     "morris.js": "morrisjs#^0.5.1",
-    "fullcalendar": "^3.0.1"
+    "fullcalendar": "^3.0.1",
+    "css-buttons": "components#*",
+    "counterup": "^1.0.0",
+    "waypoints": "^4.0.1",
+    "Flot": "flot#^0.8.3",
+    "raphael": "^2.2.7",
+    "moment": "^2.16.0",
+    "jquery.easy-pie-chart": "^2.1.6",
+    "jquery.sparkline": "^2.1.2",
+    "cookie": "^1.2.2",
+    "bootstrap-hover-dropdown": "^2.2.1",
+    "jquery-slimscroll": "^1.3.8",
+    "blockUI": "blockui#*"
   }
 }

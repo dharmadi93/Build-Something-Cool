@@ -5,6 +5,10 @@ const Item = models.Item
 
 module.exports = {
     createTransaction: (req, res) => {
+
+        var currentTransactionId
+        var currentTransactionDetail
+
         Transaction.create({
             EmployeeId: req.body.employeeId,
             faktur: req.body.faktur
