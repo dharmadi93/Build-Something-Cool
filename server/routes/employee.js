@@ -4,6 +4,7 @@ var router = express.Router();
 const employeeController = require('../controllers/controller.api.employee')
 
 router.post('/', employeeController.createEmployee)
+router.post('/login', employeeController.loginEmployee)
 router.get('/', employeeController.getAllEmployee)
 router.get('/:id', employeeController.getEmployeeById)
 router.put('/:id', employeeController.updateEmployee)

@@ -1,6 +1,6 @@
 const models = require('../models')
 const Employee = models.Employee
-const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
     getAllEmployee: (req, res) => {
@@ -29,10 +29,15 @@ module.exports = {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email
-        }).catch((err) => {
-            res.json(err)
         }).then((data) => {
-            res.json(data)
+            return res.status(200).json({
+                token: jwt.sign({
+                    userId: data.id,
+                    username: data.username
+                }, process.env.SESSION_SECRET)
+            })
+        }).catch((err) => {
+            return res.status(400).json(err.message)
         })
     },
 
@@ -80,5 +85,27 @@ module.exports = {
         }).then((data) => {
             res.json(data)
         }))
+    },
+
+    loginEmployee: (req, res) => {
+        Employee.findOne({
+            where: {
+                username: req.body.username,
+                password: req.body.password
+            }
+        }).catch((err) => {
+            res.json(err)
+        }).then((data) => {
+            if (!data) return res.status(400).json('No User Found')
+            else {
+                return res.status(200).json({
+                    token: jwt.sign({
+                        userId: data.id,
+                        username: data.username,
+                        photo_path: data.photo_path
+                    }, process.env.SESSION_SECRET)
+                })
+            }
+        })
     }
 }

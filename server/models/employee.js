@@ -2,12 +2,38 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Employee = sequelize.define('Employee', {
-      name: DataTypes.STRING,
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      email: DataTypes.STRING,
+      name: {
+          type: DataTypes.STRING,
+          validate: {
+              notEmpty: true
+          }
+      },
+      username: {
+          type: DataTypes.STRING,
+          validate: {
+              notEmpty: true
+          }
+      },
+      password: {
+          type: DataTypes.STRING,
+          validate: {
+              notEmpty: true
+          }
+      },
+      email: {
+          type: DataTypes.STRING,
+          validate: {
+              notEmpty: true,
+              isEmail: true
+          }
+      },
       photo_path: DataTypes.STRING,
-      role: DataTypes.STRING
+      role: {
+          type: DataTypes.STRING,
+          validate: {
+              notEmpty: true
+          }
+      }
   }, {
     classMethods: {
       associate: function(models) {

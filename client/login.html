@@ -36,18 +36,18 @@
                         <div class="form-group-lg">
                             <input type="email" class="form-control" name="email" placeholder="email"/>
                         </div>
-                        <button class="btn btn-success text-uppercase">create</button>
+                        <button name="buttonRegister" class="btn btn-success text-uppercase">create</button>
                         <p class="message">Already registered? <a href="#">Sign In</a></p>
                     </form>
 
                     <form class="login-form">
                         <div class="form-group-lg">
-                            <input type="text" class="form-control" name="username" placeholder="username"/>
+                            <input type="text" class="form-control" name="usernameLogin" placeholder="username"/>
                         </div>
                         <div class="form-group-lg">
-                            <input type="password" class="form-control" name="password" placeholder="password"/>
+                            <input type="password" class="form-control" name="passwordLogin" placeholder="password"/>
                         </div>
-                        <button class="btn btn-success">login</button>
+                        <button name="buttonLogin" class="btn btn-success">login</button>
                         <p class="message">Not registered? <a href="#">Create an account</a></p>
                     </form>
                 </div>
@@ -59,12 +59,15 @@
 </body>
 
 <!--<script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>-->
-<script src="lib/custom/jqueryv1.js" type="text/javascript"></script>
+<script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="lib/jwt-decode/build/jwt-decode.min.js"></script>
+<script src="token.js"></script>
 <script>
     $('.message a').click(function(){
         $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
     });
 </script>
+<script src="login.js"></script>
 
 </html>
