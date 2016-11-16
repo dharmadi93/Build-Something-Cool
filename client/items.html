@@ -12,6 +12,7 @@
 
     <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="admin.css">
 
 
@@ -72,10 +73,40 @@
 
             <!-- Page Heading -->
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-sm-12">
                     <h1 class="page-header">
                         Items
                     </h1>
+                </div>
+            </div>
+
+            <div id="rowOfItems" class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="itemTable" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Quantity</td>
+                                <td>Price</td>
+                                <td>Base Price</td>
+                            </tr>
+                            </thead>
+
+                            <tbody id="itemList">
+
+                            </tbody>
+
+                            <tfoot>
+                            <tr>
+                                <td>Name</td>
+                                <td>Quantity</td>
+                                <td>Price</td>
+                                <td>Base Price</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -93,6 +124,8 @@
 <script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="lib/jwt-decode/build/jwt-decode.min.js"></script>
+<script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="token.js"></script>
 <script src="index.js"></script>
 
