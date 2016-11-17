@@ -50,7 +50,7 @@ module.exports = {
     updateItem: (req, res) => {
         Item.update({
             name: req.body.name,
-            quantity: req.body.quatity,
+            quantity: req.body.quantity,
             price: req.body.price,
             base_price: req.body.base_price
         }, {
