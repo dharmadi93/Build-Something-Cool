@@ -27,11 +27,15 @@ function getItemsList() {
             for (let i = 0; i < data.length; i++) {
                 item.push(`
                 
-                <tr>
+                <tr id="item${data[i].id}">
                     <td>${data[i].name}</td>
                     <td>${data[i].quantity}</td>
                     <td>${data[i].price}</td>
                     <td>${data[i].base_price}</td>    
+                    <td>
+                        <a name="buttonEdit" class="btn btn-warning" data-id="${data[i].id}">Edit</a>
+                        <a name="buttonDelete" class="btn btn-danger" data-id="${data[i].id}">Delete</a>
+                    </td>    
                 </tr>
                 
 `)
@@ -69,11 +73,15 @@ function createItem(name, quantity, price, basePrice) {
 
 function updateViewAfterCreateItem(data) {
     let html = `
-        <tr>
+        <tr id="item${data.id}">
             <td>${data.name}</td>
             <td>${data.quantity}</td>
             <td>${data.price}</td>
-            <td>${data.base_price}</td>    
+            <td>${data.base_price}</td>
+            <td>
+                <a name="buttonEdit" class="btn btn-warning" data-id="${data.id}">Edit</a>
+                <a name="buttonDelete" class="btn btn-danger" data-id="${data.id}">Delete</a>
+            </td>
         </tr>
 `
     $('#createItemModal').modal('hide')
@@ -82,4 +90,24 @@ function updateViewAfterCreateItem(data) {
     $('input[name="price"]').val('')
     $('input[name="basePrice"]').val('')
     $('#itemList').append(html)
+}
+
+$(document).on('click', 'a[name="buttonDelete"]', function () {
+    let itemId = this.getAttribute('data-id')
+    deleteItem(itemId)
+})
+
+function deleteItem(itemId) {
+    let tempId = itemId
+    $.ajax({
+        url: `${URL_ITEM}/${itemId}`,
+        method: 'delete',
+        success: function () {
+            updateViewAfterDeleteItem(tempId)
+        }
+    })
+}
+
+function updateViewAfterDeleteItem(itemId) {
+    $(`#item${itemId}`).remove()
 }
