@@ -28,16 +28,12 @@ module.exports = {
             name: req.body.name,
             username: req.body.username,
             password: req.body.password,
-            email: req.body.email
+            email: req.body.email,
+            role:req.body.role
         }).then((data) => {
-            return res.status(200).json({
-                token: jwt.sign({
-                    userId: data.id,
-                    username: data.username
-                }, process.env.SESSION_SECRET)
-            })
+            res.json(data)
         }).catch((err) => {
-            return res.status(400).json(err.message)
+            res.json(err)
         })
     },
 

@@ -18,8 +18,30 @@
 
 <body>
 
+<!--Modal Confirm-->
+<div id="modalConfirm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmNo" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button id="confirmYes" type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <!-- Modal Create-->
-<div id="createItemModal" class="modal fade" role="dialog">
+<div id="createEmployeeModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -36,26 +58,26 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Quantity:</label>
+                        <label class="control-label col-sm-2">Username:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="quantity">
+                            <input type="text" class="form-control" name="username">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Price:</label>
+                        <label class="control-label col-sm-2">Password:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="price">
+                            <input type="password" class="form-control" name="password">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Base Price:</label>
+                        <label class="control-label col-sm-2">Email:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="basePrice">
+                            <input type="email" class="form-control" name="email">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button name="buttonCreateItem" class="btn btn-default">Submit</button>
+                            <button name="buttonCreateEmployee" class="btn btn-default">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -70,7 +92,7 @@
 
 
 <!-- Modal Edit-->
-<div id="editItemModal" class="modal fade" role="dialog">
+<div id="editEmployeeModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -87,26 +109,26 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Quantity:</label>
+                        <label class="control-label col-sm-2">Username:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="quantityEdit">
+                            <input type="text" class="form-control" name="username">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Price:</label>
+                        <label class="control-label col-sm-2">Password:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="priceEdit">
+                            <input type="password" class="form-control" name="password">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Base Price:</label>
+                        <label class="control-label col-sm-2">Email:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="basePriceEdit">
+                            <input type="email" class="form-control" name="email">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button name="buttonUpdateItem" class="btn btn-default">Submit</button>
+                            <button name="buttonUpdateEmployee" class="btn btn-default">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -187,7 +209,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <button id="createItem" class="btn btn-primary" data-toggle="modal" data-target="#createItemModal">Create Item</button>
+                    <button id="createItem" class="btn btn-primary" data-toggle="modal" data-target="#createEmployeeModal">Create Employee</button>
                 </div>
             </div>
 
