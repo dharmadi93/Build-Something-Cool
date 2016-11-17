@@ -38,6 +38,7 @@
     "blockUI": "blockui#*",
     "jwt-decode": "^2.1.0",
     "datatables.net": "^1.10.12",
-    "datatables.net-bs": "^1.10.12"
+    "datatables.net-bs": "^1.10.12",
+    "lockr": "^0.8.4"
   }
 }
