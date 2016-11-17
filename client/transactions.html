@@ -1,10 +1,305 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <meta charset="utf-8" />
+    <title>POS | Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="admin.css">
+
+
 <body>
 
+<!--Modal Confirm-->
+<div id="modalConfirm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmNo" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button id="confirmYes" type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Create-->
+<div id="createEmployeeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create Transaction</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Username:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Password:</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Email:</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button name="buttonCreateEmployee" class="btn btn-default">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal Edit-->
+<div id="editEmployeeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Item</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="formEmployeeUpdate" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="nameEdit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Username:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="usernameEdit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Password:</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" name="passwordEdit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Email:</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" name="emailEdit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button name="buttonUpdateEmployee" class="btn btn-default">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">POS</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span id="userName"></span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a name="userLogout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li class="active">
+                    <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="employee.html"><i class="fa fa-book"></i> Employee</a>
+                </li>
+                <li>
+                    <a href="items.html"><i class="fa fa-fw fa-bar-chart-o"></i> Items</a>
+                </li>
+                <li>
+                    <a href="transactions.html"><i class="fa fa-balance-scale"></i> Transactions</a>
+                </li>
+                <li>
+                    <a><i class="fa fa-fw fa-table"></i> Report</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="page-header">
+                        Employee
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <form class="form-inline">
+                        <div class="form-group col-sm-2">
+                            <label>Choose Item:</label>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <select name="item" class="form-control">
+                                <option value=""></option>
+                            </select>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div id="rowOfCarts" class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="cartTable" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <td>No</td>
+                                <td>Item</td>
+                                <td>Quantity</td>
+                                <td>Price</td>
+                                <td>Total Price</td>
+                            </tr>
+                            </thead>
+
+                            <tbody id="listCart">
+                            <tr class="text-center">
+                                <td colspan="5">Your cart is empty</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="rowOfEmployees" class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="itemTable" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Username</td>
+                                <td>Password</td>
+                                <td>Email</td>
+                                <td>Role</td>
+                                <td>Action</td>
+                            </tr>
+                            </thead>
+
+                            <tbody id="employeeList">
+
+                            </tbody>
+
+                            <tfoot>
+                            <tr>
+                                <td>Name</td>
+                                <td>Username</td>
+                                <td>Password</td>
+                                <td>Email</td>
+                                <td>Role</td>
+                                <td>Action</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
 </body>
+
+<script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="lib/lockr/lockr.min.js"></script>
+<script src="lib/jwt-decode/build/jwt-decode.min.js"></script>
+<script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="token.js"></script>
+<script src="employee.js"></script>
+
 </html>
