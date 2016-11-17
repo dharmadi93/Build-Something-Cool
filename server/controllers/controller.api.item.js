@@ -75,26 +75,38 @@ module.exports = {
             where: {
                 id: req.params.id
             }
+        }).then((data) => {
+            Item.update({
+                quantity: data.quantity + Number(req.body.quantity)
+            }, {
+                where: {
+                    id: req.params.id
+                }
+            }).then(Item.findOne({
+                where: {
+                    id: req.params.id
+                }
+            }).catch((err) => {
+                res.json(err)
+            }).then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                res.json(err)
+            }))
         }).catch((err) => {
             res.json(err)
+        })
+    },
+
+    getItemCart: (req, res) => {
+        Item.find({
+            where: {
+                id: req.params.id
+            }
         }).then((data) => {
-          Item.update({
-              quantity: data.quantity + Number(req.body.quantity)
-          }, {
-              where: {
-                  id: req.params.id
-              }
-          }).catch((err) => {
-              res.json(err)
-          }).then(Item.findOne({
-              where: {
-                  id: req.params.id
-              }
-          }).catch((err) => {
-              res.json(err)
-          }).then((data) => {
-              res.json(data)
-          }))
+            res.json(data)
+        }).catch((err) => {
+            res.json(err)
         })
     }
 }
