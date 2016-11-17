@@ -30,3 +30,23 @@ function getEmployeeList() {
         }
     })
 }
+
+$(document).on('click', 'a[name="buttonDelete"]', function () {
+    let employeeId = this.getAttribute('data-id')
+    deleteEmployee(employeeId)
+})
+
+function deleteEmployee(employeeId) {
+    let tempId = employeeId
+    $.ajax({
+        url: `${URL_EMPLOYEE}/${employeeId}`,
+        method: 'delete',
+        success: function () {
+            updateViewAfterDeleteEmployee(tempId)
+        }
+    })
+}
+
+function updateViewAfterDeleteEmployee(employeeId) {
+    $(`#employee${employeeId}`).remove()
+}

@@ -94,7 +94,10 @@ function updateViewAfterCreateItem(data) {
 
 $(document).on('click', 'a[name="buttonDelete"]', function () {
     let itemId = this.getAttribute('data-id')
-    deleteItem(itemId)
+    $('#modalConfirm').modal('show')
+    $(document).on('click', 'button[id="confirmYes"]', function () {
+        deleteItem(itemId)
+    })
 })
 
 function deleteItem(itemId) {
