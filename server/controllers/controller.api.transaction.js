@@ -16,9 +16,9 @@ module.exports = {
                     id: data.id
                 }
             }).then((data) => {
+                let tempTransactionId = data.id
                 let cartTemp = req.body.cart
                 let cart = JSON.parse(cartTemp)
-                console.log(cart)
                 for (let i = 0; i < cart.length; i++) {
                     let temp = cart[i].item.split('#')
                     let itemId = temp[0]
@@ -51,9 +51,12 @@ module.exports = {
                         })
                     }).then((data) => {
                         Report.create({
-                            TransactionId: data.id,
+                            TransactionId: tempTransactionId,
                             employeeName: employeeName,
-                            // ItemName
+                            itemName: name,
+                            quantity: quantity,
+                            price: price,
+                            base_price: base_price
                         })
                     })
                 }
