@@ -5,30 +5,31 @@ const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 $(document).ready(function () {
     getSelectItem()
     getAllCart()
-    console.log(Auth.getUser())
+    getAllTransaction()
 })
 
 function getAllCart() {
     let data = Lockr.get('cart')
     let subTotal = 0
     let cart = []
-    console.log(data)
-    for (let i = 0; i < data.length; i++) {
-        let temp = data[i].item.split('#')
-        let name = temp[1]
-        let quantity = temp[2]
-        let price = temp[3]
-        let total = quantity * price
-        subTotal = subTotal + total
-        cart.push(`
+    if (typeof data != 'undefined') {
+        for (let i = 0; i < data.length; i++) {
+            let temp = data[i].item.split('#')
+            let name = temp[1]
+            let quantity = temp[2]
+            let price = temp[3]
+            let total = quantity * price
+            subTotal = subTotal + total
+            cart.push(`
             <tr class="text-center">
-                <td>${i+1}</td>
+                <td>${i + 1}</td>
                 <td>${name}</td>
                 <td>${quantity}</td>
                 <td>${price}</td>
                 <td>${total}</td>
             </tr>
 `)
+        }
     }
 
     cart.push(`
@@ -104,3 +105,29 @@ $(document).on('click', 'button[name="checkout"]', function () {
         }
     })
 })
+
+
+function getAllTransaction() {
+    $.ajax({
+        url: `${URL_TRANSACTION}`,
+        method: 'get',
+        success: function (data) {
+            showAlltransaction(data)
+        }
+    })
+}
+
+function showAlltransaction(data) {
+    let transaction = []
+    for (let i = 0; i < data.length; i++) {
+        transaction.push(`
+            <tr>
+                <td>${data[i].id}</td>
+                <td>${data[i].EmployeeId}</td>
+                <td>${data[i].createdAt}</td>
+            </tr> 
+`)
+    }
+
+    $('#transactionList').html(transaction.join(""))
+}

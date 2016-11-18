@@ -7,7 +7,7 @@ module.exports = {
     createTransaction: (req, res) => {
         Transaction.create({
             faktur: 'faktur-',
-            employeeId: req.body.employeeId
+            EmployeeId: req.body.employeeId
         }).then((data) => {
             Transaction.findOne({
                 id: data.id
@@ -31,7 +31,23 @@ module.exports = {
                         base_price: base_price,
                         TransactionId: data.id
                     }).then((data) => {
-                        // res.json(data)
+                        Item.findOne({
+                            id: itemId
+                        }).then((data) => {
+                            Item.update({
+                                quantity: data.quantity - quantity
+                            }, {
+                                where: {
+                                    id: data.id
+                                }
+                            }).then((data) => {
+                            //    substrac item quantity
+                            }).catch((err) => {
+                                res.json(err)
+                            })
+                        }).catch((err) => {
+                            res.json(err)
+                        })
                     }).catch((err) => {
                         res.json(err)
                     })
