@@ -39,8 +39,10 @@ function getItemsList() {
                 </tr>
                 
 `)
-                $('#itemList').html(item.join(""))
+
             }
+
+            $('#itemList').html(item.join(""))
         }
     })
 }

@@ -16,10 +16,10 @@ module.exports = {
     },
 
     getAllItems: (req, res) => {
-        Item.findAll().catch((err) => {
-            res.json(err)
-        }).then((data) => {
+        Item.findAll().then((data) => {
             res.json(data)
+        }).catch((err) => {
+            res.json(err)
         })
     },
 
