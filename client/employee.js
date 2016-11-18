@@ -2,8 +2,13 @@ const URL_EMPLOYEE = 'http://localhost:3000/api/employee'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
+    getUsernameOnNavbar()
     getAllEmployeeList()
 })
+
+function getUsernameOnNavbar() {
+    $('#userName').html(Auth.getUser().username)
+}
 
 function getAllEmployeeList() {
     $.ajax({

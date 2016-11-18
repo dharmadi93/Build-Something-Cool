@@ -3,10 +3,15 @@ const URL_TRANSACTION = 'http://localhost:3000/api/transaction'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
+    getUsernameOnNavbar()
     getSelectItem()
     getAllCart()
     getAllTransaction()
 })
+
+function getUsernameOnNavbar() {
+    $('#userName').html(Auth.getUser().username)
+}
 
 function getAllCart() {
     let data = Lockr.get('cart')
