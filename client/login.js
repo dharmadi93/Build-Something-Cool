@@ -1,6 +1,14 @@
 const URL_EMPLOYEE = 'http://localhost:3000/api/employee'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
+$(document).ready(function () {
+    authUser()
+})
+
+function authUser() {
+    if (Auth.getToken()) window.location = '/'
+}
+
 $(document).on('click', 'button[name="buttonLogin"]', function (e) {
     e.preventDefault()
     let username = $('input[name="usernameLogin"]').val()

@@ -2,12 +2,26 @@ const URL_EMPLOYEE = 'http://localhost:3000/api/employee'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
+    authUser()
     getUsernameOnNavbar()
     getAllEmployeeList()
 })
 
 function getUsernameOnNavbar() {
     $('#userName').html(Auth.getUser().username)
+}
+
+$(document).on('click', 'a[name="userLogout"]', function () {
+    logout()
+})
+
+function authUser() {
+    if (!Auth.getToken()) window.location = '/login.html'
+}
+
+function logout() {
+    Auth.deauthenticateUser()
+    window.location = '/login.html'
 }
 
 function getAllEmployeeList() {

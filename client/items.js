@@ -2,6 +2,7 @@ const URL_ITEM = 'http://localhost:3000/api/item'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
+    authUser()
     getUsernameOnNavbar()
     // $('#itemTable').DataTable();
     getItemsList()
@@ -12,11 +13,18 @@ function getUsernameOnNavbar() {
     $('#userName').html(Auth.getUser().username)
 }
 
-//LOGOUT
 $(document).on('click', 'a[name="userLogout"]', function () {
-    Auth.deauthenticateUser()
-    window.location = '/login'.html
+    logout()
 })
+
+function authUser() {
+    if (!Auth.getToken()) window.location = '/login.html'
+}
+
+function logout() {
+    Auth.deauthenticateUser()
+    window.location = '/login.html'
+}
 
 function getItemsList() {
     $.ajax({

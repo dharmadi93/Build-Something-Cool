@@ -3,6 +3,7 @@ const URL_TRANSACTION = 'http://localhost:3000/api/transaction'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
+    authUser()
     getUsernameOnNavbar()
     getSelectItem()
     getAllCart()
@@ -11,6 +12,19 @@ $(document).ready(function () {
 
 function getUsernameOnNavbar() {
     $('#userName').html(Auth.getUser().username)
+}
+
+$(document).on('click', 'a[name="userLogout"]', function () {
+    logout()
+})
+
+function authUser() {
+    if (!Auth.getToken()) window.location = '/login.html'
+}
+
+function logout() {
+    Auth.deauthenticateUser()
+    window.location = '/login.html'
 }
 
 function getAllCart() {

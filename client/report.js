@@ -2,6 +2,7 @@ const URL_REPORT = 'http://localhost:3000/api/report'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
+    authUser()
     getUsernameOnNavbar()
     getAllReport()
 })
@@ -10,14 +11,36 @@ function getUsernameOnNavbar() {
     $('#userName').html(Auth.getUser().username)
 }
 
-function getAllReport() {
+$(document).on('click', 'a[name="userLogout"]', function () {
+    logout()
+})
+
+function authUser() {
+    if (!Auth.getToken()) window.location = '/login.html'
+}
+
+function logout() {
+    Auth.deauthenticateUser()
+    window.location = '/login.html'
+}
+
+$('input[name="employeeName"], input[name="date"]').bind('keyup change', function () {
+    let employee = $('input[name="employeeName"]').val()
+    let date = $('input[name="date"]').val()
+    getAllReport(employee, date)
+
+})
+
+function getAllReport(employee, date) {
+
     $.ajax({
-        url: `${URL_REPORT}`,
+        url: `${URL_REPORT}/search?employeeName=${employee}&createdAt=${date}`,
         method: 'get',
         success: function (data) {
             showAllReport(data)
         }
     })
+
 }
 
 function showAllReport(data) {
