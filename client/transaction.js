@@ -103,6 +103,7 @@ $(document).on('click', 'button[name="checkout"]', function () {
         success: function (data) {
             Lockr.rm('cart')
             getAllCart()
+            getAllTransaction()
             alert(data)
         }
     })

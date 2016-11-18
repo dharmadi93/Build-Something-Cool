@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>POS | Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="admin.css">
+
+
+<body>
+
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">POS</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span id="userName"></span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a name="userLogout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li class="active">
+                    <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="employee.html"><i class="fa fa-book"></i> Employee</a>
+                </li>
+                <li>
+                    <a href="items.html"><i class="fa fa-fw fa-bar-chart-o"></i> Items</a>
+                </li>
+                <li>
+                    <a href="transactions.html"><i class="fa fa-balance-scale"></i> Transactions</a>
+                </li>
+                <li>
+                    <a href="report.html"><i class="fa fa-fw fa-table"></i> Report</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="page-header">
+                        Report
+                    </h1>
+                </div>
+            </div>
+
+            <div id="rowOfCarts" class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="cartTable" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <td>No</td>
+                                <td>Transaction ID</td>
+                                <td>Employee Name</td>
+                                <td>Item Name</td>
+                                <td>Quantity</td>
+                                <td>Price</td>
+                                <td>Base Price</td>
+                                <td>Profit</td>
+                            </tr>
+                            </thead>
+
+                            <tbody id="listReport">
+                            <tr class="text-center">
+                                <td colspan="5">Your cart is empty</td>
+                            </tr>
+                            </tbody>
+
+                            <tfoot>
+                            <tr>
+                                <td>No</td>
+                                <td>Transaction ID</td>
+                                <td>Employee Name</td>
+                                <td>Item Name</td>
+                                <td>Quantity</td>
+                                <td>Price</td>
+                                <td>Base Price</td>
+                                <td>Profit</td>
+                            </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="rowOfEmployees" class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table id="itemTable" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <td>Transaction ID</td>
+                                <td>Employee</td>
+                                <td>Created At</td>
+                            </tr>
+                            </thead>
+
+                            <tbody id="transactionList">
+
+                            </tbody>
+
+                            <tfoot>
+                            <tr>
+                                <td>Transaction ID</td>
+                                <td>Employee</td>
+                                <td>Created At</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+</body>
+
+<script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="lib/lockr/lockr.min.js"></script>
+<script src="lib/jwt-decode/build/jwt-decode.min.js"></script>
+<script src="lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="token.js"></script>
+<script src="report.js"></script>
+
+</html>
