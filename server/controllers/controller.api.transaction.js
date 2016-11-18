@@ -1,6 +1,7 @@
 const models = require('../models')
 const Transaction = models.Transaction
 const TransactionDetail = models.TransactionDetail
+const Employee = models.Employee
 const Report = models.Report
 const Item = models.Item
 
@@ -75,12 +76,7 @@ module.exports = {
                 }
             ]
         }).then((data) => {
-            let data_array = []
-            for (let i = 0; i < data.length; i++) {
-                data_array.push(data[i])
-            }
-            // console.log(data_array)
-            res.json(data_array)
+            res.json(data)
         }).catch((err) => {
             res.json(err)
         })
