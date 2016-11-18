@@ -2,6 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Report = sequelize.define('Report', {
     TransactionId: DataTypes.INTEGER,
+    employeeName: DataTypes.STRING,
     itemName: DataTypes.STRING,
     quantity: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
