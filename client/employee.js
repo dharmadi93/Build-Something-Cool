@@ -52,6 +52,7 @@ function getAllEmployeeList() {
                     <td>${data[i].password}</td>
                     <td>${data[i].email}</td>    
                     <td>${data[i].role}</td>    
+                    <td><img class="img-circle" width="50px" height="50px" src="http://localhost:3000/images/${data[i].photo_path}" alt=""></td>    
                     <td>
                         <a name="buttonEdit" class="btn btn-warning" data-id="${data[i].id}">Edit</a>
                         <a name="buttonDelete" class="btn btn-danger" data-id="${data[i].id}">Delete</a>
@@ -73,6 +74,7 @@ function appendEmployee(data) {
                     <td>${data.password}</td>
                     <td>${data.email}</td>    
                     <td>${data.role}</td>    
+                    <td><img class="img-circle" width="50px" height="50px" src="http://localhost:3000/images/${data.photo_path}" alt=""></td>
                     <td>
                         <a name="buttonEdit" class="btn btn-warning" data-id="${data.id}">Edit</a>
                         <a name="buttonDelete" class="btn btn-danger" data-id="${data.id}">Delete</a>
@@ -89,7 +91,8 @@ function replaceEmployee(data) {
                     <td>${data.username}</td>
                     <td>${data.password}</td>
                     <td>${data.email}</td>    
-                    <td>${data.role}</td>    
+                    <td>${data.role}</td> 
+                    <td><img class="img-circle" width="50px" height="50px" src="http://localhost:3000/images/${data.photo_path}" alt=""></td>
                     <td>
                         <a name="buttonEdit" class="btn btn-warning" data-id="${data.id}">Edit</a>
                         <a name="buttonDelete" class="btn btn-danger" data-id="${data.id}">Delete</a>
@@ -125,30 +128,44 @@ function updateViewAfterDeleteEmployee(employeeId) {
 }
 
 $(document).on('click', 'button[name="buttonCreateEmployee"]', function (e) {
-    e.preventDefault()
+
     let name = $('input[name="name"]').val()
     let username = $('input[name="username"]').val()
     let password = $('input[name="password"]').val()
     let email = $('input[name="email"]').val()
-    createEmployee(name, username, password, email)
-})
+    // createEmployee(name, username, password, email)
 
-function createEmployee(name, username, password, email) {
-    $.ajax({
-        url: `${URL_EMPLOYEE}`,
-        method: 'post',
-        contentType: `${CONTENT_TYPE}`,
-        data: {
-            name: name,
-            username: username,
-            password: password,
-            email: email,
-            role: 'employee'
+    $('#createEmployee').ajaxSubmit({
+        error : function(res){
+            console.log(`Error: ${res.status}`)
         },
-        success: function (data) {
+        success : function(data){
+            console.log(data);
             updateViewAfterCreateEmployee(data)
         }
     })
+    e.preventDefault()
+})
+
+function createEmployee(name, username, password, email) {
+
+
+
+    // $.ajax({
+    //     url: `${URL_EMPLOYEE}`,
+    //     method: 'post',
+    //     contentType: `${CONTENT_TYPE}`,
+    //     data: {
+    //         name: name,
+    //         username: username,
+    //         password: password,
+    //         email: email,
+    //         role: 'employee'
+    //     },
+    //     success: function (data) {
+    //         updateViewAfterCreateEmployee(data)
+    //     }
+    // })
 }
 
 function updateViewAfterCreateEmployee(data) {

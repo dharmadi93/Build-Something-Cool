@@ -2,6 +2,7 @@ $(document).ready(function () {
     authUser()
     getUsernameOnNavbar()
     sideNav()
+    console.log(Auth.getUser())
 })
 
 function getUsernameOnNavbar() {

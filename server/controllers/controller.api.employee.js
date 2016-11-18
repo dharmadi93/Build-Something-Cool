@@ -1,6 +1,17 @@
 const models = require('../models')
 const Employee = models.Employee
 const jwt = require('jsonwebtoken')
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, `public/images`)
+    },
+    filename: function (req, file, callback) {
+        callback(null, `${Date.now()}-${file.originalname}`)
+    }
+})
+const upload = multer({ storage: storage }).single('photo')
 
 module.exports = {
     getAllEmployee: (req, res) => {
@@ -24,16 +35,29 @@ module.exports = {
     },
 
     createEmployee: (req, res) => {
-        Employee.create({
-            name: req.body.name,
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            role:req.body.role
-        }).then((data) => {
-            res.json(data)
-        }).catch((err) => {
-            res.json(err)
+
+        upload(req, res, function (err) {
+            if (err) {
+                console.log(err);
+                return res.json('Error uploading file!', err)
+            }
+            else if (req.file.filename) {
+                Employee.create({
+                    name: req.body.name,
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email,
+                    photo_path: req.file.filename,
+                    role: 'employee'
+                }).then((data) => {
+                    res.json(data)
+                }).catch((err) => {
+                    res.json(err)
+                })
+            }
+            else {
+                res.json('Error no file!', err)
+            }
         })
     },
 
@@ -65,6 +89,7 @@ module.exports = {
         Employee.update({
             name: req.body.name,
             username: req.body.username,
+            password: req.body.password,
             email: req.body.email
         }, {
             where: {
