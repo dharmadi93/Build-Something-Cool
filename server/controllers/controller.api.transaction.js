@@ -1,19 +1,24 @@
 const models = require('../models')
 const Transaction = models.Transaction
 const TransactionDetail = models.TransactionDetail
+const Report = models.Report
 const Item = models.Item
 
 module.exports = {
     createTransaction: (req, res) => {
+        let employeeName = req.body.employeeName
         Transaction.create({
             faktur: 'faktur-',
             EmployeeId: req.body.employeeId
         }).then((data) => {
             Transaction.findOne({
-                id: data.id
+                where: {
+                    id: data.id
+                }
             }).then((data) => {
                 let cartTemp = req.body.cart
                 let cart = JSON.parse(cartTemp)
+                console.log(cart)
                 for (let i = 0; i < cart.length; i++) {
                     let temp = cart[i].item.split('#')
                     let itemId = temp[0]
@@ -32,7 +37,9 @@ module.exports = {
                         TransactionId: data.id
                     }).then((data) => {
                         Item.findOne({
-                            id: itemId
+                            where: {
+                                id: itemId
+                            }
                         }).then((data) => {
                             Item.update({
                                 quantity: data.quantity - quantity
@@ -40,22 +47,17 @@ module.exports = {
                                 where: {
                                     id: data.id
                                 }
-                            }).then((data) => {
-                            //    substrac item quantity
-                            }).catch((err) => {
-                                res.json(err)
                             })
-                        }).catch((err) => {
-                            res.json(err)
                         })
-                    }).catch((err) => {
-                        res.json(err)
+                    }).then((data) => {
+                        Report.create({
+                            TransactionId: data.id,
+                            employeeName: employeeName,
+                            // ItemName
+                        })
                     })
-
                 }
                 res.json('Cart has been inserted')
-            }).catch((err) => {
-                res.json(err)
             })
         }).catch((err) => {
             res.json(err)

@@ -89,6 +89,7 @@ $(document).on('click', 'button[name="checkout"]', function () {
     let data = Lockr.get('cart')
     let temp = JSON.stringify(data)
     let employeeId = Auth.getUser().userId
+    let employeeName = Auth.getUser().username
     console.log(temp)
     $.ajax({
         url: `${URL_TRANSACTION}`,
@@ -96,6 +97,7 @@ $(document).on('click', 'button[name="checkout"]', function () {
         contentType: `${CONTENT_TYPE}`,
         data: {
             employeeId: employeeId,
+            employeeName: employeeName,
             cart: temp
         },
         success: function (data) {
