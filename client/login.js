@@ -26,6 +26,7 @@ function loginUser(username, password) {
             password: password
         },
         success: function (data) {
+            // console.log(data)
             Auth.authenticateUser(data)
             window.location = '/'
         },

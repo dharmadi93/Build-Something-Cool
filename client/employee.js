@@ -3,12 +3,26 @@ const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
     authUser()
+    notAdmin()
     getUsernameOnNavbar()
+    sideNav()
     getAllEmployeeList()
 })
 
+function notAdmin() {
+    if (Auth.getUser().role != 'admin') window.location = '/'
+}
+
 function getUsernameOnNavbar() {
     $('#userName').html(Auth.getUser().username)
+}
+
+function sideNav() {
+    if (Auth.getUser().role != 'admin') {
+        $('#navEmployee').addClass('hidden')
+        $('#navItem').addClass('hidden')
+        $('#navReport').addClass('hidden')
+    }
 }
 
 $(document).on('click', 'a[name="userLogout"]', function () {

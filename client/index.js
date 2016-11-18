@@ -1,12 +1,19 @@
 $(document).ready(function () {
     authUser()
     getUsernameOnNavbar()
-    getItemsList()
-
+    sideNav()
 })
 
 function getUsernameOnNavbar() {
     $('#userName').html(Auth.getUser().username)
+}
+
+function sideNav() {
+    if (Auth.getUser().role != 'admin') {
+        $('#navEmployee').addClass('hidden')
+        $('#navItem').addClass('hidden')
+        $('#navReport').addClass('hidden')
+    }
 }
 
 $(document).on('click', 'a[name="userLogout"]', function () {

@@ -68,7 +68,30 @@ module.exports = {
     },
 
     getAllTransaction: (req, res) => {
-        Transaction.findAll().catch((err) => {
+        Transaction.findAll({
+            include: [
+                {
+                    model: Employee
+                }
+            ]
+        }).then((data) => {
+            let data_array = []
+            for (let i = 0; i < data.length; i++) {
+                data_array.push(data[i])
+            }
+            // console.log(data_array)
+            res.json(data_array)
+        }).catch((err) => {
+            res.json(err)
+        })
+    },
+
+    getAllTransactionByEmployeeId: (req, res) => {
+        Transaction.findAll({
+            where: {
+                EmployeeId: req.params.id
+            }
+        }).catch((err) => {
             res.json(err)
         }).then((data) => {
             res.json(data)

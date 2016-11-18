@@ -98,7 +98,7 @@ module.exports = {
                     token: jwt.sign({
                         userId: data.id,
                         username: data.username,
-                        photo_path: data.photo_path
+                        role: data.role
                     }, process.env.SESSION_SECRET)
                 })
             }

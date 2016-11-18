@@ -5,6 +5,7 @@ const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 $(document).ready(function () {
     authUser()
     getUsernameOnNavbar()
+    sideNav()
     getSelectItem()
     getAllCart()
     getAllTransaction()
@@ -14,6 +15,14 @@ function getUsernameOnNavbar() {
     $('#userName').html(Auth.getUser().username)
 }
 
+function sideNav() {
+    if (Auth.getUser().role != 'admin') {
+        $('#navEmployee').addClass('hidden')
+        $('#navItem').addClass('hidden')
+        $('#navReport').addClass('hidden')
+    }
+}
+
 $(document).on('click', 'a[name="userLogout"]', function () {
     logout()
 })
@@ -21,6 +30,7 @@ $(document).on('click', 'a[name="userLogout"]', function () {
 function authUser() {
     if (!Auth.getToken()) window.location = '/login.html'
 }
+
 
 function logout() {
     Auth.deauthenticateUser()
@@ -130,13 +140,28 @@ $(document).on('click', 'button[name="checkout"]', function () {
 
 
 function getAllTransaction() {
-    $.ajax({
-        url: `${URL_TRANSACTION}`,
-        method: 'get',
-        success: function (data) {
-            showAlltransaction(data)
-        }
-    })
+
+    let employeeId = Auth.getUser().userId
+    if (Auth.getUser().role == 'admin') {
+        $.ajax({
+            url: `${URL_TRANSACTION}`,
+            method: 'get',
+            success: function (data) {
+                console.log(data)
+                showAlltransaction(data)
+            }
+        })
+    }
+    else {
+        $.ajax({
+            url: `${URL_TRANSACTION}/employee/${employeeId}`,
+            method: 'get',
+            success: function (data) {
+                showAlltransaction(data)
+            }
+        })
+    }
+
 }
 
 function showAlltransaction(data) {
