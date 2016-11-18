@@ -1,21 +1,23 @@
 const URL_ITEM = 'http://localhost:3000/api/item'
+const URL_TRANSACTION = 'http://localhost:3000/api/transaction'
 const CONTENT_TYPE = 'application/x-www-form-urlencoded'
 
 $(document).ready(function () {
     getSelectItem()
     getAllCart()
-
+    console.log(Auth.getUser())
 })
 
 function getAllCart() {
-    let data = Lockr.getAll()
+    let data = Lockr.get('cart')
     let subTotal = 0
     let cart = []
-    for (let i = 0; i < data[0].length; i++) {
-        let temp = data[0][i].split('#')
+    console.log(data)
+    for (let i = 0; i < data.length; i++) {
+        let temp = data[i].item.split('#')
         let name = temp[1]
-        let price = temp[2]
-        let quantity = temp[3]
+        let quantity = temp[2]
+        let price = temp[3]
         let total = quantity * price
         subTotal = subTotal + total
         cart.push(`
@@ -53,7 +55,7 @@ function showSelectItem(data) {
     let item = []
     for (let i = 0; i < data.length; i++) {
         item.push(`
-               <option value="${data[i].id}#${data[i].name}#${data[i].price}">${data[i].name}</option> 
+               <option value="${data[i].id}#${data[i].name}#${data[i].price}#${data[i].base_price}">${data[i].name}</option> 
 `)
     }
 
@@ -62,13 +64,43 @@ function showSelectItem(data) {
 
 $(document).on('click', 'button[name="insertCart"]', function (e) {
     e.preventDefault()
-    let item = $('select[name="item"]').val()
-    let quantity = $('input[name="quantity"]').val()
-    Lockr.sadd('cart', `${item}#${quantity}`);
-    getAllCart()
+    insertCart()
 })
+
+function insertCart() {
+    let itemTemp = $('select[name="item"]').val().split('#')
+    let id = itemTemp[0]
+    let item = itemTemp[1]
+    let price = itemTemp[2]
+    let base_price = itemTemp[3]
+
+    let quantity = $('input[name="quantity"]').val()
+    Lockr.sadd('cart', {item: `${id}#${item}#${quantity}#${price}#${base_price}`});
+    getAllCart()
+}
 
 $(document).on('click', 'button[name="deleteCart"]', function () {
     Lockr.rm('cart')
     getAllCart()
+})
+
+$(document).on('click', 'button[name="checkout"]', function () {
+    let data = Lockr.get('cart')
+    let temp = JSON.stringify(data)
+    let employeeId = Auth.getUser().userId
+    console.log(temp)
+    $.ajax({
+        url: `${URL_TRANSACTION}`,
+        method: `post`,
+        contentType: `${CONTENT_TYPE}`,
+        data: {
+            employeeId: employeeId,
+            cart: temp
+        },
+        success: function (data) {
+            Lockr.rm('cart')
+            getAllCart()
+            alert(data)
+        }
+    })
 })

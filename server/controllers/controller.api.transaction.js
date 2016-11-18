@@ -5,45 +5,44 @@ const Item = models.Item
 
 module.exports = {
     createTransaction: (req, res) => {
-
-        var currentTransactionId
-        var currentTransactionDetail
-
         Transaction.create({
-            EmployeeId: req.body.employeeId,
-            faktur: req.body.faktur
-        }).catch((err) => {
-            res.json(err)
+            faktur: 'faktur-',
+            employeeId: req.body.employeeId
         }).then((data) => {
-            TransactionDetail.create({
-                ItemId: req.body.ItemId,
-                quantity: req.body.quantity,
-                price: req.body.price,
-                base_price: req.body.base_price,
-                TransactionId: data.id
-            }).catch((err) => {
-                res.json(err)
+            Transaction.findOne({
+                id: data.id
             }).then((data) => {
-                Item.findOne({
-                    where: {
-                        id: data.ItemId
-                    }
-                }).catch((err) => {
-                    res.json(err)
-                }).then((data) => {
-                    Item.update({
-                        quantity: data.quantity - Number(req.body.quantity)
-                    }, {
-                        where: {
-                            id: data.id
-                        }
+                let cartTemp = req.body.cart
+                let cart = JSON.parse(cartTemp)
+                for (let i = 0; i < cart.length; i++) {
+                    let temp = cart[i].item.split('#')
+                    let itemId = temp[0]
+                    let name = temp[1]
+                    let quantity = temp[2]
+                    let price = temp[3]
+                    let base_price = temp[4]
+                    // console.log(`${itemId} ${name} ${quantity} ${price} ${base_price}`)
+
+
+                    TransactionDetail.create({
+                        ItemId: itemId,
+                        quantity: quantity,
+                        price: price,
+                        base_price: base_price,
+                        TransactionId: data.id
+                    }).then((data) => {
+                        // res.json(data)
                     }).catch((err) => {
                         res.json(err)
-                    }).then((data) => {
-                        res.json(data)
                     })
-                })
+
+                }
+                res.json('Cart has been inserted')
+            }).catch((err) => {
+                res.json(err)
             })
+        }).catch((err) => {
+            res.json(err)
         })
     },
 
